@@ -35,7 +35,7 @@ class GraphAlgo(GraphAlgoInterface):
             flag = True
             if info.find("pos") < 0:
                 flag = False
-            graph_dict = json.loads(info)       # parse the json to a dictionary
+            graph_dict = json.loads(info)
             new_graph = DiGraph()
             nodes = graph_dict["Nodes"]
             for n in nodes:                     # for every node check if it has pos and add it
