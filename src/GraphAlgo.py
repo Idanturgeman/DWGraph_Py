@@ -46,7 +46,6 @@ class GraphAlgo(GraphAlgoInterface):
                 else:
                     new_graph.add_node(n["id"])
             edges = graph_dict["Edges"]
-            # for every edge add the edge
             for e in edges:
                 new_graph.add_edge(e["src"], e["dest"], e["w"])
             self.graph = new_graph
