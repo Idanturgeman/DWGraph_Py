@@ -21,7 +21,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(graph.e_size(), 5)
         self.assertEqual(graph.v_size(), 10)
 
-    def test_removing(self):    # try removing nodes and edges then check for correct value updates
+    def test_removing(self):
         graph = DiGraph()
         for i in range(10):
             graph.add_node(i)
