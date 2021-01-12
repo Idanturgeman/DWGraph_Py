@@ -119,7 +119,7 @@ class DiGraph(GraphInterface):
     def get_graph(self):
         node_list = []
         edge_list = []
-        for n in self.nodes:    # create lists of nodes and edges
+        for n in self.nodes:
             node = self.nodes[n].get_node()
             node_list.append(node)
             edges = self.nodes[n].get_edge_list()
