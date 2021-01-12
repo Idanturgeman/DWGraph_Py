@@ -5,7 +5,7 @@ from GraphInterface import GraphInterface
     implementing data structure of directed weighted graph"""
 
 
-class WDGraph(GraphInterface):
+class DiGraph(GraphInterface):
 
     """create an empty graph"""
     def __init__(self):
