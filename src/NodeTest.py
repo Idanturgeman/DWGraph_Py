@@ -4,16 +4,14 @@ from Ariel_OOP_2020.Assignments.Ex3.src.DiGraph import DiGraph
 
 class MyTestCase(unittest.TestCase):
 
-    # test addition and removal of edges
     def test_edges(self):
         node = DiGraph.Node(0, None)
 
-        self.assertFalse(node.add_edge(0, 100))   # check false addition
+        self.assertFalse(node.add_edge(0, 100))
         self.assertTrue(node.add_edge(1, 10))
         self.assertTrue(node.add_edge(2, 20))
         self.assertTrue(node.add_back_edge(2, 30))
 
-        # check if edge dictionary is correct
         node_dict = node.get_edges()
         self.assertIsNone(node_dict.get(0))
         self.assertEqual(node_dict.get(1), 10)
@@ -26,14 +24,13 @@ class MyTestCase(unittest.TestCase):
         self.assertFalse(node.remove_edge(0))
         self.assertTrue(node.remove_edge(1))
 
-        # check new dictionary values
         node_dict = node.get_edges()
         self.assertIsNone(node_dict.get(5))
         self.assertIsNone(node_dict.get(0))
         self.assertIsNone(node_dict.get(1))
         self.assertEqual(node_dict.get(2), 20)
 
-    def test_json(self):    # checks nodes string format
+    def test_json(self):
         node1 = DiGraph.Node(1)
         node2 = DiGraph.Node(2, (1, 2, 3))
         node1.add_edge(2, 2)
@@ -55,7 +52,6 @@ class MyTestCase(unittest.TestCase):
         p = [1, 2, 3]
         node.set_path(p)
         np = node.get_path()
-        # check the node's path values
         for i in range(len(np)):
             self.assertEqual(p[i], np[i])
         node.set_path()
