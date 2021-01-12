@@ -2,7 +2,7 @@ import unittest
 import networkx as nx
 from DiGraph import DiGraph
 from GraphAlgo import GraphAlgo
-from NXJsonReader import NXJsonReader
+from Networkx import Networkx
 
 
 class MyTestCase(unittest.TestCase):
@@ -60,7 +60,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(len(path), 0)
 
 
-        nxr = NXJsonReader()
+        nxr = Networkx()
         nxr.read('../data/G_100_800_1.json')
         nxg = nxr.get_graph()
         nx_path = nx.shortest_path(nxg, 3, 73, weight="weight")
@@ -110,7 +110,7 @@ class MyTestCase(unittest.TestCase):
         com = comps[0]
         for n in range(len(com)):
             self.assertEqual(com[n], n)
-        nxr = NXJsonReader()
+        nxr = Networkx()
         nxr.read('../data/G_1000_8000_1.json')
         nxg = nxr.get_graph()
         nx_comps = nx.strongly_connected_components(nxg)

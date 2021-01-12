@@ -4,7 +4,7 @@ import networkx as nx
 """A utility class to load the json files to a networkx Directed graph"""
 
 
-class NXJsonReader:
+class Networkx:
 
     """Initialize the graph that will hold the json's graph"""
     def __init__(self):

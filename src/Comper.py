@@ -2,14 +2,14 @@ import unittest
 import networkx as nx
 import time
 from GraphAlgo import GraphAlgo
-from NXJsonReader import NXJsonReader
+from Networkx import Networkx
 
 
 
 class MyTestCase(unittest.TestCase):
 
     def setUp(self) -> None:
-        nxr = NXJsonReader()
+        nxr = Networkx()
         file = '../data/G_1000_8000_1.json'
         nxr.read(file)
         self.nxg = nxr.get_graph()
