@@ -52,7 +52,6 @@ class MyTestCase(unittest.TestCase):
         graph.add_edge(1, 2, 3)
         graph.add_edge(1, 5, 6)
 
-        # estimated values
         check_out = {2: 3, 5: 6}
         edges_out = graph.all_out_edges_of_node(1)
         check_in = {0: 1, 2: 3, 3: 4}
