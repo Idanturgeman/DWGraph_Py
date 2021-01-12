@@ -107,7 +107,6 @@ class DiGraph(GraphInterface):
         if self.nodes.get(node_id1) is not None and self.nodes.get(node_id2) is not None:
             src = self.nodes.get(node_id1)
             dest = self.nodes.get(node_id2)
-            # check if removal was successful
             if src.remove_edge(node_id2) and dest.remove_back_edge(node_id1):
                 self.ec -= 1
                 self.mc += 1
