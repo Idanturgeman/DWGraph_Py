@@ -33,7 +33,7 @@ class GraphAlgo(GraphAlgoInterface):
             json_file = open(file_name, "r")
             info = json_file.read()
             flag = True
-            if info.find("pos") < 0:            # check if the node have positions
+            if info.find("pos") < 0:
                 flag = False
             graph_dict = json.loads(info)       # parse the json to a dictionary
             new_graph = DiGraph()
