@@ -42,7 +42,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(graph.e_size(), 2)
         self.assertEqual(graph.v_size(), 9)
 
-    def test_get_edges(self):     # check for correct edges' dict values
+    def test_get_edges(self):
         graph = DiGraph()
         for i in range(6):
             graph.add_node(i)
