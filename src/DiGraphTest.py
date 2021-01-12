@@ -57,7 +57,6 @@ class MyTestCase(unittest.TestCase):
         check_in = {0: 1, 2: 3, 3: 4}
         edges_in = graph.all_in_edges_of_node(1)
 
-        # check every dictionary values
         for e in edges_out:
             self.assertEqual(check_out[e], edges_out[e])
         for e in edges_in:
