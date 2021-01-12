@@ -18,7 +18,7 @@ class MyTestCase(unittest.TestCase):
 
 
 
-    def test_nx_CCS(self):    # finds all the connected components 10 times and return average runtime
+    def test_nx_CCS(self):
         start = time.time()
         for i in range(10):
             nx.strongly_connected_components(self.nxg)
