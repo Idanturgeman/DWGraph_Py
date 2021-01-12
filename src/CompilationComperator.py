@@ -39,7 +39,7 @@ class MyTestCase(unittest.TestCase):
         end = time.time()
         print((end - start)/10)
 
-    def test_GA_CC(self):      # finds the nodes that are part of 456 component 10 times and return average runtime
+    def test_GA_CC(self):
         start = time.time()
         for i in range(10):
             self.ga.connected_component(456)
