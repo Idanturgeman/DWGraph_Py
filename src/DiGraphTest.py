@@ -4,7 +4,7 @@ from Ariel_OOP_2020.Assignments.Ex3.src.DiGraph import DiGraph
 
 class MyTestCase(unittest.TestCase):
 
-    def test_adding(self):   # try adding nodes and edges check for correct value updates
+    def test_adding(self):
         graph = DiGraph()
         for i in range(10):
             self.assertTrue(graph.add_node(i))
