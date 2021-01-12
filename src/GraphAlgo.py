@@ -51,7 +51,7 @@ class GraphAlgo(GraphAlgoInterface):
             self.graph = new_graph
             json_file.close()
             return True
-        except IOError:   # in case of failing to open the file
+        except IOError:
             return False
 
     """Save the graph info to a json file for later use
