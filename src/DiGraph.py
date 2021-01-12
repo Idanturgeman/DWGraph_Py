@@ -102,7 +102,7 @@ class DiGraph(GraphInterface):
        @param node_id2: destination node of the edge
        @return if the removal was successful"""
     def remove_edge(self, node_id1: int, node_id2: int) -> bool:
-        if node_id1 == node_id2:   # check for parameters validity
+        if node_id1 == node_id2:
             return False
         if self.nodes.get(node_id1) is not None and self.nodes.get(node_id2) is not None:
             src = self.nodes.get(node_id1)
