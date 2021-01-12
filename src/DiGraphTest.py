@@ -28,7 +28,7 @@ class MyTestCase(unittest.TestCase):
         for e in range(5):
             graph.add_edge(e, e + 1, e * 10 + 1)
 
-        self.assertFalse(graph.remove_edge(8, 9))         # check if invalid removal is ignored
+        self.assertFalse(graph.remove_edge(8, 9))
         self.assertFalse(graph.remove_edge(0, 100))
 
         self.assertTrue(graph.remove_edge(4, 5))
