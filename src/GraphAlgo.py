@@ -81,7 +81,7 @@ class GraphAlgo(GraphAlgoInterface):
                 path.append(id1)
                 return dist, path
             self._clear_weight()
-            que = list()   # a queue to hold the nodes with their paths
+            que = list()
             src = nodes.get(id1)
             path.append(id1)
             src.set_path(path)
@@ -89,25 +89,22 @@ class GraphAlgo(GraphAlgoInterface):
             while len(que) > 0:
                 que.sort(key=DiGraph.Node.get_weight)
                 node = que.pop(0)
-                if id2 == node.get_key():       # if reached the dest node i found the shortest path
+                if id2 == node.get_key():
                     dist = node.get_weight()
                     path = node.get_path()
                     return dist, path
                 edges = node.get_edges()
-                # check all the neighbors of the node
                 for e in edges:
                     ni = nodes[e]
-                    dist = node.get_weight() + edges[e]  # update the current distance
-                    # check if we reached a new node or an old node with a better path
+                    dist = node.get_weight() + edges[e]
                     if (dist < ni.get_weight() or ni.get_weight() == 0) and ni.get_key() != id1:
                         if dist < ni.get_weight() and ni in que:
                             que.remove(ni)
-                        temp_path = node.get_path().copy()  # copy the stored path and append it
+                        temp_path = node.get_path().copy()
                         temp_path.append(e)
-                        ni.set_path(temp_path)   # store the current path
-                        ni.set_weight(dist)      # store the dist in the node
+                        ni.set_path(temp_path)
+                        ni.set_weight(dist)
                         que.append(ni)
-        # if we existed the while loop than there was no path
         dist = float('inf')
         path = list()
         return dist, path
@@ -119,33 +116,27 @@ class GraphAlgo(GraphAlgoInterface):
     def connected_component(self, id1: int) -> list:
         nodes = self.graph.get_all_v()
         comp = list()
-        # check that the validity of the parameters
         if nodes.get(id1) is None:
             return comp
-        self._clear_tag()  # clear tags for a clean graph
-        que = list()       # a queue to hold the nodes
+        self._clear_tag()
+        que = list()
         que.append(nodes[id1])
-        # use BFS algorithm to reach every reachable node and set it's tag to 1
         while len(que) != 0:
             node = que.pop(0)
             node.set_tag(1)
             edges = node.get_edges()
-            # check all the nodes neighbors
             for e in edges:
-                if nodes[e].get_tag() == 0:  # if unvisited add the neighbor to the queue
+                if nodes[e].get_tag() == 0:
                     que.append(nodes[e])
         que.append(nodes[id1])
-        # use BFS algorithm in reverse, to reach every reachable node and set it's tag to 2 and weight to 1
         while len(que) != 0:
             node = que.pop(0)
             node.set_tag(2)
             node.set_weight(1)
             back_edges = node.get_back_edges()
-            # check all the nodes neighbors
             for e in back_edges:
-                if nodes[e].get_tag() == 1:  # if unvisited add the neighbor to the queue
+                if nodes[e].get_tag() == 1:
                     que.append(nodes[e])
-        # check every node if it part of the connected component and add it to the list
         for n in nodes:
             if nodes[n].get_tag() == 2:
                 comp.append(n)
