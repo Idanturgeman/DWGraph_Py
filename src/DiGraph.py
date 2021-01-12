@@ -87,7 +87,7 @@ class DiGraph(GraphInterface):
             edges = node.get_edges()
             back_edges = node.get_back_edges()
             self.ec -= (len(edges) + len(back_edges))
-            self.mc += (len(edges) + len(back_edges) + 1)    # all edge removal and a node removal
+            self.mc += (len(edges) + len(back_edges) + 1)
             # remove all the edges pointed by outside nodes
             for n in edges:
                 self.nodes.get(n).remove_back_edge(node_id)
