@@ -80,7 +80,7 @@ class GraphAlgo(GraphAlgoInterface):
             if id1 == id2:
                 path.append(id1)
                 return dist, path
-            self._clear_weight()    # clear the previous weight to work on a clean graph
+            self._clear_weight()
             que = list()   # a queue to hold the nodes with their paths
             src = nodes.get(id1)
             path.append(id1)
