@@ -77,7 +77,7 @@ class GraphAlgo(GraphAlgoInterface):
         path = list()
         nodes = self.graph.get_all_v()
         if nodes.get(id1) is not None and nodes.get(id2) is not None:
-            if id1 == id2:          # in case of receiving the same node
+            if id1 == id2:
                 path.append(id1)
                 return dist, path
             self._clear_weight()    # clear the previous weight to work on a clean graph
