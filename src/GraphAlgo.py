@@ -63,7 +63,7 @@ class GraphAlgo(GraphAlgoInterface):
             json_file.write(info)
             json_file.close()
             return True
-        except IOError:   # in case of failing to open the file
+        except IOError:
             return False
 
     """Calculate the distance and path from id1 to id2
