@@ -30,7 +30,7 @@ class GraphAlgo(GraphAlgoInterface):
        @return if the loading was successful"""
     def load_from_json(self, file_name: str) -> bool:
         try:
-            json_file = open(file_name, "r")    # open the file
+            json_file = open(file_name, "r")
             info = json_file.read()
             flag = True
             if info.find("pos") < 0:            # check if the node have positions
