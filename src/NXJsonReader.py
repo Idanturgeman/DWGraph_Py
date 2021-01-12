@@ -22,11 +22,11 @@ class NXJsonReader:
         info = json_file.read()
         graph_dict = json.loads(info)
 
-        nodes = graph_dict["Nodes"]     # for every node create a node with it's id
+        nodes = graph_dict["Nodes"]
         for node in nodes:
             self.graph.add_node(node["id"])
 
-        edges = graph_dict["Edges"]    # for every edge create an edge with the following nodes and weight
+        edges = graph_dict["Edges"]
         for edge in edges:
             self.graph.add_edge(edge["src"], edge["dest"], weight=edge["w"])
         json_file.close()
