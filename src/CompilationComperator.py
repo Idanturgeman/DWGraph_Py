@@ -4,7 +4,6 @@ import time
 from GraphAlgo import GraphAlgo
 from NXJsonReader import NXJsonReader
 
-# compares the average running time of GraphAlgo to networkx
 
 
 class MyTestCase(unittest.TestCase):
