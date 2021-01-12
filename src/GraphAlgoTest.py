@@ -86,6 +86,7 @@ class MyTestCase(unittest.TestCase):
         g.add_edge(1, 2, 2)
         g.add_edge(2, 1, 1)
         ga = GraphAlgo(g)
+
         # check correction of the return values of multiple node component
         check = [1, 2]
         comp = ga.connected_component(1)
