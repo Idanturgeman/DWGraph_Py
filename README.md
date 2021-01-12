@@ -24,7 +24,6 @@ $ git clone https://github.com/Idanturjeman/DWGraph_Py.git
 
 ![ex3Pic3](https://user-images.githubusercontent.com/57140018/104348947-f8f87b00-550a-11eb-88d1-8914aaa60a09.png)
 
-![ex3Pic5](https://user-images.githubusercontent.com/57140018/104348991-057cd380-550b-11eb-9d75-f2f79bcb05e3.png)
 
 ### Don't Stop Here
 
