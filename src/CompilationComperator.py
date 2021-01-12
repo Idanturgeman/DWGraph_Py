@@ -9,7 +9,7 @@ from NXJsonReader import NXJsonReader
 
 class MyTestCase(unittest.TestCase):
 
-    def setUp(self) -> None:   # loads the file to GraphAlgo object ga and networkx DiGraph object nxg
+    def setUp(self) -> None:
         nxr = NXJsonReader()
         file = '../data/G_1000_8000_1.json'
         nxr.read(file)
