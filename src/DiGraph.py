@@ -53,7 +53,7 @@ class DiGraph(GraphInterface):
        @param weight: weight of the edge, must be greater than 0
        @return if the addition was successful"""
     def add_edge(self, id1: int, id2: int, weight: float) -> bool:
-        if id1 == id2 or weight <= 0:      # check for parameters' validity
+        if id1 == id2 or weight <= 0:
             return False
         if self.nodes.get(id1) is not None and self.nodes.get(id2) is not None:   # check if the nodes exist
             src = self.nodes.get(id1)
