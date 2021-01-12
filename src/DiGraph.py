@@ -58,7 +58,7 @@ class DiGraph(GraphInterface):
         if self.nodes.get(id1) is not None and self.nodes.get(id2) is not None:
             src = self.nodes.get(id1)
             dest = self.nodes.get(id2)
-            # if the addition was successful update values
+
             if src.add_edge(id2, weight) and dest.add_back_edge(id1, weight):
                 self.ec += 1
                 self.mc += 1
