@@ -70,7 +70,7 @@ class DiGraph(GraphInterface):
        @param pos: node's position in 3D space, optional
        @return if the addition was successful"""
     def add_node(self, node_id: int, pos: tuple = None) -> bool:
-        if self.nodes.get(node_id) is None:   # check if the node already exist
+        if self.nodes.get(node_id) is None:
             node = self.Node(node_id, pos)
             self.nodes.update([(node_id, node)])
             self.mc += 1
