@@ -6,6 +6,7 @@ from NXJsonReader import NXJsonReader
 
 
 class MyTestCase(unittest.TestCase):
+
     def test_load(self):   # test the loading from files
         g = DiGraph()
         ga = GraphAlgo(g)
