@@ -76,7 +76,6 @@ class GraphAlgo(GraphAlgoInterface):
         dist = 0
         path = list()
         nodes = self.graph.get_all_v()
-        # check for parameters validity
         if nodes.get(id1) is not None and nodes.get(id2) is not None:
             if id1 == id2:          # in case of receiving the same node
                 path.append(id1)
