@@ -11,7 +11,7 @@ class MyTestCase(unittest.TestCase):
         for e in range(5):
             self.assertTrue(graph.add_edge(e, e+1, e*10 + 1))
 
-        self.assertFalse(graph.add_edge(1, 1, 100))     # check if invalid addition is ignored
+        self.assertFalse(graph.add_edge(1, 1, 100))
         self.assertFalse(graph.add_edge(5, 80, 10))
         self.assertFalse(graph.add_edge(8, 5, -5))
         self.assertFalse(graph.add_edge(13, 15, 2))
