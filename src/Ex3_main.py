@@ -29,7 +29,7 @@ def check0():
     This function tests the naming (main methods of the DiGraph class, as defined in GraphInterface.
     :return:
     """
-    g = DiGraph()  # creates an empty directed graph
+    g = DiGraph()
     for n in range(4):
         g.add_node(n)
     g.add_edge(0, 1, 1)
