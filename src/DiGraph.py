@@ -55,7 +55,7 @@ class DiGraph(GraphInterface):
     def add_edge(self, id1: int, id2: int, weight: float) -> bool:
         if id1 == id2 or weight <= 0:
             return False
-        if self.nodes.get(id1) is not None and self.nodes.get(id2) is not None:   # check if the nodes exist
+        if self.nodes.get(id1) is not None and self.nodes.get(id2) is not None:
             src = self.nodes.get(id1)
             dest = self.nodes.get(id2)
             # if the addition was successful update values
