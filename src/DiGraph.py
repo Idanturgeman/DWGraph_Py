@@ -160,7 +160,7 @@ class DiGraph(GraphInterface):
            @param weight: the weight of the edge
            @return if the connection was successful"""
         def add_edge(self, key, weight):
-            if key != self.key and self.edges.get(key) is None:   # check parameters validity
+            if key != self.key and self.edges.get(key) is None:
                 self.edges.update([(key, weight)])
                 return True
             return False
