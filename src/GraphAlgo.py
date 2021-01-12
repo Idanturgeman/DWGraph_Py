@@ -58,7 +58,7 @@ class GraphAlgo(GraphAlgoInterface):
        @param file_name: the path to the file from the root"""
     def save_to_json(self, file_name: str) -> bool:
         try:
-            json_file = open(file_name, "w")    # open the file
+            json_file = open(file_name, "w")
             info = repr(self.graph)             # the repr is built in a json format, see DiGraph
             json_file.write(info)
             json_file.close()
