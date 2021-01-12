@@ -25,7 +25,7 @@ class MyTestCase(unittest.TestCase):
         end = time.time()
         print((end - start)/10)
 
-    def test_GA_shortest(self):   # calculate the shortest path and distance 10 times and return average runtime
+    def test_GA_shortest(self):
         start = time.time()
         for i in range(10):
             self.ga.shortest_path(1, 25468)
