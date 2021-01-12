@@ -1,5 +1,4 @@
 import unittest
-##from DiGraph import DiGraph
 from Ariel_OOP_2020.Assignments.Ex3.src.DiGraph import DiGraph
 
 
