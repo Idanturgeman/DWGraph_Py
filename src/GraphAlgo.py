@@ -148,21 +148,20 @@ class GraphAlgo(GraphAlgoInterface):
     def connected_components(self) -> List[list]:
         nodes = self.graph.get_all_v()
         comps = list()
-        if len(nodes) == 0:  # check that the graph is not empty
+        if len(nodes) == 0:
             return comps
-        self._clear_weight()  # clear the weight for clean graph
+        self._clear_weight()
         for n in nodes:
             node = nodes[n]
-            if node.get_weight() != 1:               # check every node if it is part of a component
-                com = self.connected_component(n)    # if not search it's component and add it to the list
+            if node.get_weight() != 1:
+                com = self.connected_component(n)
                 comps.append(com)
         return comps
 
     """Present the graph in a GUI window, utilizes the matplotlib"""
     def plot_graph(self) -> None:
         nodes = self.graph.get_all_v()
-        min_x, max_x, min_y, max_y = self._set_positions()  # calculate the axes for the graph
-        # if the position are the same create space
+        min_x, max_x, min_y, max_y = self._set_positions()
         if min_x == max_x:
             if min_x == 0:
                 max_x = 1
@@ -173,24 +172,22 @@ class GraphAlgo(GraphAlgoInterface):
                 max_y = 1
             else:
                 min_y *= 0.9
-        r = min(max_x - min_x, max_y - min_y)/80   # calculate a radius for the node in the plot
-        fig, ax = plt.subplots(figsize=(6, 6))    # set plot size
-        # for every node create a circle write its id
+        r = min(max_x - min_x, max_y - min_y)/80
+        fig, ax = plt.subplots(figsize=(6, 6))
         for n in nodes:
             node = nodes[n]
             pos = node.get_pos()
-            circle = plt.Circle((pos[0], pos[1]), r)   # set the circle in the node's position
+            circle = plt.Circle((pos[0], pos[1]), r)
             ax.add_artist(circle)
-            ax.text(pos[0], pos[1], n)    # set the node's id as text on the node's position
+            ax.text(pos[0], pos[1], n)
             edges = node.get_edges()
-            # for every edge create an arrow from the source node to it's neighbors position
             for e in edges:
                 dest = nodes[e]
                 dest_pos = dest.get_pos()
                 ax.annotate("", xy=(dest_pos[0], dest_pos[1]), xycoords='data',
                             xytext=(pos[0], pos[1]), textcoords='data',
                             arrowprops=dict(arrowstyle="->", connectionstyle="arc3"),)
-        r *= 10   # convert the radius to increase the axis so all the nodes will fit inside nicely
+        r *= 10
         ax.axis([min_x-r, max_x+r, min_y-r, max_y+r])
         plt.show()
 
@@ -198,13 +195,12 @@ class GraphAlgo(GraphAlgoInterface):
        if the nodes lack position create a random position in the range of current nodes
        @return min_x and max_x for the x axis, min_y and max_y for the y axis"""
     def _set_positions(self):
-        random.seed(5)   # seed for consistent graphs
+        random.seed(5)
         nodes = self.graph.get_all_v()
         min_x = float('inf')
         min_y = float('inf')
         max_x = -float('inf')
         max_y = -float('inf')
-        # for every node with position find the max and min x and y values
         for n in nodes:
             node = nodes[n]
             pos = node.get_pos()
@@ -213,13 +209,11 @@ class GraphAlgo(GraphAlgoInterface):
                 min_y = min(min_y, pos[1])
                 max_x = max(max_x, pos[0])
                 max_y = max(max_y, pos[1])
-        # if none of the nodes had position set the range as the number of nodes
         if min_x >= max_x:
             min_x = 0
             min_y = 0
             max_x = len(nodes)
             max_y = len(nodes)
-        # for every node without a position create a random position in current range
         for n in nodes:
             node = nodes[n]
             pos = node.get_pos()
