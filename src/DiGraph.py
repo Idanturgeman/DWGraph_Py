@@ -124,7 +124,7 @@ class DiGraph(GraphInterface):
             node_list.append(node)
             edges = self.nodes[n].get_edge_list()
             edge_list.extend(edges)
-        graph_dict = {"Edges": edge_list, "Nodes": node_list}   # add the lists to the return dictionary
+        graph_dict = {"Edges": edge_list, "Nodes": node_list}
         return graph_dict
 
     """Return a string containing the graph's information in a json format
