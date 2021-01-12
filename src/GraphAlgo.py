@@ -38,7 +38,7 @@ class GraphAlgo(GraphAlgoInterface):
             graph_dict = json.loads(info)
             new_graph = DiGraph()
             nodes = graph_dict["Nodes"]
-            for n in nodes:                     # for every node check if it has pos and add it
+            for n in nodes:
                 if flag:
                     str_pos = n["pos"]
                     pos = tuple(map(float, str_pos.split(',')))
