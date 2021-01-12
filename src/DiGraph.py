@@ -82,7 +82,7 @@ class DiGraph(GraphInterface):
        @param: node_id: the node' id
        @return if the removal was successful"""
     def remove_node(self, node_id: int) -> bool:
-        if self.nodes.get(node_id) is not None:   # check if node exist
+        if self.nodes.get(node_id) is not None:
             node = self.nodes.get(node_id)
             edges = node.get_edges()
             back_edges = node.get_back_edges()
