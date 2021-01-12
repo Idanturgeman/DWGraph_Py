@@ -59,7 +59,7 @@ class GraphAlgo(GraphAlgoInterface):
     def save_to_json(self, file_name: str) -> bool:
         try:
             json_file = open(file_name, "w")
-            info = repr(self.graph)             # the repr is built in a json format, see DiGraph
+            info = repr(self.graph)
             json_file.write(info)
             json_file.close()
             return True
