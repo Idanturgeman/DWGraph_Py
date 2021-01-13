@@ -35,6 +35,7 @@ class DiGraph(GraphInterface):
             if key != self.key and self.edges.get(key) is None:
                 self.edges.update([(key, weight)])
                 return True
+
             return False
 
         """Remove an edge that start in this node
@@ -44,6 +45,7 @@ class DiGraph(GraphInterface):
             if self.edges.get(key) is not None:
                 self.edges.pop(key)
                 return True
+
             return False
 
         """Connect this node to another with an edge
@@ -53,6 +55,7 @@ class DiGraph(GraphInterface):
             if key != self.key and self.revers_edges.get(key) is None:
                 self.revers_edges.update([(key, weight)])
                 return True
+
             return False
 
         """Remove an edge that end in this node
@@ -62,6 +65,7 @@ class DiGraph(GraphInterface):
             if self.revers_edges.get(key) is not None:
                 self.revers_edges.pop(key)
                 return True
+
             return False
 
         """Returns a dictionary of all the edges entering the node {src id<int>: edge weight<float>}
@@ -123,6 +127,7 @@ class DiGraph(GraphInterface):
             for e in self.edges:
                 edge_dict = {"src": self.key, "w": self.edges[e], "dest": e}
                 edge_list.append(edge_dict)
+
             return edge_list
 
         """Return a string containing the node's information in a json format
@@ -142,6 +147,7 @@ class DiGraph(GraphInterface):
             else:
                 str_pos = "%.16lf,%.16lf,%.16lf" % (self.pos[0], self.pos[1], self.pos[2])
                 node_dict = {"pos": str_pos, "id": self.key}
+
             return node_dict
 
     ################### DiGraph_Class ###############################################################################
@@ -188,6 +194,7 @@ class DiGraph(GraphInterface):
             self.nodes.update([(node_id, node)])
             self.mc += 1
             return True
+
         return False
 
     """connects 2 nodes with an edge weighted as weight,
@@ -205,6 +212,8 @@ class DiGraph(GraphInterface):
                 self.ec += 1
                 self.mc += 1
                 return True
+
+
         return False
 
     """Remove an existing edge from the graph
@@ -220,6 +229,8 @@ class DiGraph(GraphInterface):
                 self.ec -= 1
                 self.mc += 1
                 return True
+
+
         return False
 
     """Remove the node from the graph and all his edges,
@@ -238,8 +249,10 @@ class DiGraph(GraphInterface):
                 self.nodes.get(n).remove_revers_edge(node_id)
             for n in back_edges:
                 self.nodes.get(n).remove_edge(node_id)
+
             self.nodes.pop(node_id)
             return True
+
         return False
 
     def __repr__(self):
