@@ -16,11 +16,9 @@ $ git clone https://github.com/Idanturjeman/DWGraph_Py.git
 * **[JDK](https://www.oracle.com/java/technologies/javase-downloads.html)**
 * **[Pycharm](https://www.jetbrains.com/pycharm/)** or some other **IDE**
 
-### Some visuale examples - from the smallest to the largest graph
+### Some visuale examples 
 
 ![ex3Pic2](https://user-images.githubusercontent.com/57140018/104348888-ea11c880-550a-11eb-901e-026f89bea626.png)
-
-![ex3Pic1](https://user-images.githubusercontent.com/57140018/104348729-bfc00b00-550a-11eb-98f3-692f8c39f068.png)
 
 ![ex3Pic3](https://user-images.githubusercontent.com/57140018/104348947-f8f87b00-550a-11eb-88d1-8914aaa60a09.png)
 
