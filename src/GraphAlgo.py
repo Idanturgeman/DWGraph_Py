@@ -11,9 +11,9 @@ from matplotlib import pyplot as plt
 
 
 class GraphAlgo(GraphAlgoInterface):
-
     """Initialize the GraphAlgo class with the given graph.
        @param graph: the that we will work on, if is None create a default empty graph"""
+
     def __init__(self, graph=None):
         if graph is None:
             self.graph = DiGraph()
@@ -22,12 +22,14 @@ class GraphAlgo(GraphAlgoInterface):
 
     """Return the current graph
        @return the current graph"""
+
     def get_graph(self) -> GraphInterface:
         return self.graph
 
     """Load a graph from a Json file
        @param file_name: the path to the file from the root
        @return if the loading was successful"""
+
     def load_from_json(self, file_name: str) -> bool:
         try:
             json_file = open(file_name, "r")
@@ -56,6 +58,7 @@ class GraphAlgo(GraphAlgoInterface):
 
     """Save the graph info to a json file for later use
        @param file_name: the path to the file from the root"""
+
     def save_to_json(self, file_name: str) -> bool:
         try:
             json_file = open(file_name, "w")
@@ -69,9 +72,8 @@ class GraphAlgo(GraphAlgoInterface):
     """Calculate the distance and path from id1 to id2
        if there is no path return float('inf') and empty list
        utilizes the Dijkstra algorithms
-       @param id1: the id of the src node
-       @param id2: the id of the dest node
        @return the path distance and a list of the nodes' ids"""
+
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         dist = 0
         path = list()
@@ -111,8 +113,8 @@ class GraphAlgo(GraphAlgoInterface):
 
     """Return a list of all the connected nodes of the given node
        utilizes the Kosaraju algorithm
-       @param id1: the id of the given node
        @return a list of all the connected nodes of the given node"""
+
     def connected_component(self, id1: int) -> list:
         nodes = self.graph.get_all_v()
         comp = list()
@@ -133,7 +135,7 @@ class GraphAlgo(GraphAlgoInterface):
             node = que.pop(0)
             node.set_tag(2)
             node.set_weight(1)
-            back_edges = node.get_back_edges()
+            back_edges = node.get_revers_edges()
             for e in back_edges:
                 if nodes[e].get_tag() == 1:
                     que.append(nodes[e])
@@ -145,6 +147,7 @@ class GraphAlgo(GraphAlgoInterface):
     """Return a list of lists of all the connected components
        utilizes the Kosaraju algorithm
        @return a list of lists of all the connected components"""
+
     def connected_components(self) -> List[list]:
         nodes = self.graph.get_all_v()
         comps = list()
@@ -159,6 +162,7 @@ class GraphAlgo(GraphAlgoInterface):
         return comps
 
     """Present the graph in a GUI window, utilizes the matplotlib"""
+
     def plot_graph(self) -> None:
         nodes = self.graph.get_all_v()
         min_x, max_x, min_y, max_y = self._set_positions()
@@ -172,7 +176,7 @@ class GraphAlgo(GraphAlgoInterface):
                 max_y = 1
             else:
                 min_y *= 0.9
-        r = min(max_x - min_x, max_y - min_y)/80
+        r = min(max_x - min_x, max_y - min_y) / 80
         fig, ax = plt.subplots(figsize=(6, 6))
         for n in nodes:
             node = nodes[n]
@@ -186,14 +190,34 @@ class GraphAlgo(GraphAlgoInterface):
                 dest_pos = dest.get_pos()
                 ax.annotate("", xy=(dest_pos[0], dest_pos[1]), xycoords='data',
                             xytext=(pos[0], pos[1]), textcoords='data',
-                            arrowprops=dict(arrowstyle="->", connectionstyle="arc3"),)
+                            arrowprops=dict(arrowstyle="->", connectionstyle="arc3"), )
         r *= 10
-        ax.axis([min_x-r, max_x+r, min_y-r, max_y+r])
+        ax.axis([min_x - r, max_x + r, min_y - r, max_y + r])
         plt.show()
 
+    """Return the repr() of the graph"""
+
+    def __repr__(self):
+        return repr(self.graph)
+
+    """Sets all node's weight to 0"""
+
+    def _clear_weight(self):
+        nodes = self.graph.get_all_v()
+        for n in nodes:
+            nodes[n].set_weight(0)
+
+    """Set all the node's tag to 0"""
+
+    def _clear_tag(self):
+        nodes = self.graph.get_all_v()
+        for n in nodes:
+            nodes[n].set_tag(0)
+
     """Calculate the range of axis for the plot
-       if the nodes lack position create a random position in the range of current nodes
-       @return min_x and max_x for the x axis, min_y and max_y for the y axis"""
+          if the nodes lack position create a random position in the range of current nodes
+          @return min_x and max_x for the x axis, min_y and max_y for the y axis"""
+
     def _set_positions(self):
         random.seed(5)
         nodes = self.graph.get_all_v()
@@ -223,19 +247,3 @@ class GraphAlgo(GraphAlgoInterface):
                 new_pos = (x, y, 0)
                 node.set_pos(new_pos)
         return min_x, max_x, min_y, max_y
-
-    """Set all the node's tag to 0"""
-    def _clear_tag(self):
-        nodes = self.graph.get_all_v()
-        for n in nodes:
-            nodes[n].set_tag(0)
-
-    """Sets all node's weight to 0"""
-    def _clear_weight(self):
-        nodes = self.graph.get_all_v()
-        for n in nodes:
-            nodes[n].set_weight(0)
-
-    """Return the repr() of the graph"""
-    def __repr__(self):
-        return repr(self.graph)

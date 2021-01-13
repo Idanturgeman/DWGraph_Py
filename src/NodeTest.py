@@ -10,14 +10,14 @@ class MyTestCase(unittest.TestCase):
         self.assertFalse(node.add_edge(0, 100))
         self.assertTrue(node.add_edge(1, 10))
         self.assertTrue(node.add_edge(2, 20))
-        self.assertTrue(node.add_back_edge(2, 30))
+        self.assertTrue(node.add_revers_edge(2, 30))
 
         node_dict = node.get_edges()
         self.assertIsNone(node_dict.get(0))
         self.assertEqual(node_dict.get(1), 10)
         self.assertEqual(node_dict.get(2), 20)
 
-        node_dict = node.get_back_edges()
+        node_dict = node.get_revers_edges()
         self.assertEqual(node_dict.get(2), 30)
 
         self.assertFalse(node.remove_edge(5))
