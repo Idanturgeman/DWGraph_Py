@@ -1,9 +1,8 @@
 import json
-from typing import List
 from GraphInterface import GraphInterface
-from DiGraph import DiGraph
 from GraphAlgoInterface import GraphAlgoInterface
-from queue import PriorityQueue
+from DiGraph import DiGraph
+from typing import List
 import random
 from matplotlib import pyplot as plt
 
@@ -32,14 +31,14 @@ class GraphAlgo(GraphAlgoInterface):
 
     def load_from_json(self, file_name: str) -> bool:
         try:
-            json_file = open(file_name, "r")
-            info = json_file.read()
-            ans = True
-            if info.find("pos") < 0:
-                ans = False
+            with  open(file_name, "r") as json_file:
+                info = json_file.read()
+                ans = True
+                if info.find("pos") < 0:
+                    ans = False
 
-            new_graph = DiGraph()
-            graph_dict = json.loads(info)
+                new_graph = DiGraph()
+                graph_dict = json.loads(info)
 
             nodes = graph_dict["Nodes"]
             for node in nodes:
@@ -55,8 +54,8 @@ class GraphAlgo(GraphAlgoInterface):
                 new_graph.add_edge(edge["src"], edge["dest"], edge["w"])
 
             self.graph = new_graph
-            json_file.close()
             return True
+
         except IOError:
             return False
 
@@ -65,11 +64,11 @@ class GraphAlgo(GraphAlgoInterface):
 
     def save_to_json(self, file_name: str) -> bool:
         try:
-            json_file = open(file_name, "w")
-            info = repr(self.graph)
-            json_file.write(info)
-            json_file.close()
+            with  open(file_name, "w") as json_file:
+                info = repr(self.graph)
+                json_file.write(info)
             return True
+
         except IOError:
             return False
 
@@ -79,18 +78,19 @@ class GraphAlgo(GraphAlgoInterface):
        @return the path distance and a list of the nodes' ids"""
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
-        dist = 0
-        path = list()
         nodes = self.graph.get_all_v()
+        path = list()
+        dist = 0
+
         if nodes.get(id1) is not None and nodes.get(id2) is not None:
             if id1 == id2:
                 path.append(id1)
                 return dist, path
 
-            self._clear_weight()
             que = list()
-            src = nodes.get(id1)
+            self._clear_weight()
             path.append(id1)
+            src = nodes.get(id1)
             src.set_path(path)
             que.append(src)
 
@@ -98,24 +98,25 @@ class GraphAlgo(GraphAlgoInterface):
                 que.sort(key=DiGraph.Node.get_weight)
                 node = que.pop(0)
                 if id2 == node.get_key():
-                    dist = node.get_weight()
                     path = node.get_path()
+                    dist = node.get_weight()
                     return dist, path
-                edges = node.get_edges()
 
+                edges = node.get_edges()
                 for edge in edges:
-                    ni = nodes[edge]
                     dist = node.get_weight() + edges[edge]
-                    if (dist < ni.get_weight() or ni.get_weight() == 0) and ni.get_key() != id1:
+                    ni = nodes[edge]
+                    if ni.get_key() != id1 and (ni.get_weight() == 0 or dist < ni.get_weight()):
                         if dist < ni.get_weight() and ni in que:
                             que.remove(ni)
                         temp_path = node.get_path().copy()
                         temp_path.append(edge)
-                        ni.set_path(temp_path)
                         ni.set_weight(dist)
+                        ni.set_path(temp_path)
                         que.append(ni)
-        dist = float('inf')
+
         path = list()
+        dist = float('inf')
         return dist, path
 
     """Return a list of all the connected nodes of the given node
@@ -123,13 +124,14 @@ class GraphAlgo(GraphAlgoInterface):
        @return a list of all the connected nodes of the given node"""
 
     def connected_component(self, id1: int) -> list:
-        nodes = self.graph.get_all_v()
         comp = list()
+        nodes = self.graph.get_all_v()
+
         if nodes.get(id1) is None:
             return comp
-        self._clear_tag()
         que = list()
         que.append(nodes[id1])
+        self._clear_tag()
 
         while len(que) != 0:
             node = que.pop(0)
@@ -143,11 +145,11 @@ class GraphAlgo(GraphAlgoInterface):
 
         while len(que) != 0:
             node = que.pop(0)
-            node.set_tag(2)
             node.set_weight(1)
-            back_edges = node.get_revers_edges()
+            node.set_tag(2)
 
-            for e in back_edges:
+            revers_edges = node.get_revers_edges()
+            for e in revers_edges:
                 if nodes[e].get_tag() == 1:
                     que.append(nodes[e])
 
@@ -162,8 +164,9 @@ class GraphAlgo(GraphAlgoInterface):
        @return a list of lists of all the connected components"""
 
     def connected_components(self) -> List[list]:
-        nodes = self.graph.get_all_v()
         comps = list()
+        nodes = self.graph.get_all_v()
+
         if len(nodes) == 0:
             return comps
         self._clear_weight()
@@ -179,8 +182,10 @@ class GraphAlgo(GraphAlgoInterface):
     """Present the graph in a GUI window, utilizes the matplotlib"""
 
     def plot_graph(self) -> None:
+        max_x, max_y, min_x, min_y = self._set_positions()
+
         nodes = self.graph.get_all_v()
-        min_x, max_x, min_y, max_y = self._set_positions()
+
         if min_x == max_x:
             if min_x == 0:
                 max_x = 1
@@ -192,8 +197,8 @@ class GraphAlgo(GraphAlgoInterface):
                 max_y = 1
             else:
                 min_y *= 0.9
-        r = min(max_x - min_x, max_y - min_y) / 80
         fig, ax = plt.subplots(figsize=(6, 6))
+        r = min(max_x - min_x, max_y - min_y) / 80
 
         for n in nodes:
             node = nodes[n]
@@ -201,19 +206,18 @@ class GraphAlgo(GraphAlgoInterface):
             circle = plt.Circle((pos[0], pos[1]), r)
             ax.add_artist(circle)
             ax.text(pos[0], pos[1], n)
-            edges = node.get_edges()
 
+            edges = node.get_edges()
             for e in edges:
                 dest = nodes[e]
                 dest_pos = dest.get_pos()
                 ax.annotate("", xy=(dest_pos[0], dest_pos[1]), xycoords='data',
                             xytext=(pos[0], pos[1]), textcoords='data',
                             arrowprops=dict(arrowstyle="->", connectionstyle="arc3"), )
+
         r *= 10
         ax.axis([min_x - r, max_x + r, min_y - r, max_y + r])
         plt.show()
-
-    """Return the repr() of the graph"""
 
     def __repr__(self):
         return repr(self.graph)
@@ -222,6 +226,7 @@ class GraphAlgo(GraphAlgoInterface):
 
     def _clear_weight(self):
         nodes = self.graph.get_all_v()
+
         for n in nodes:
             nodes[n].set_weight(0)
 
@@ -229,6 +234,7 @@ class GraphAlgo(GraphAlgoInterface):
 
     def _clear_tag(self):
         nodes = self.graph.get_all_v()
+
         for n in nodes:
             nodes[n].set_tag(0)
 
@@ -237,27 +243,27 @@ class GraphAlgo(GraphAlgoInterface):
           @return min_x and max_x for the x axis, min_y and max_y for the y axis"""
 
     def _set_positions(self):
-        random.seed(5)
         nodes = self.graph.get_all_v()
-        min_x = float('inf')
-        min_y = float('inf')
+        random.seed(5)
         max_x = -float('inf')
+        min_x = float('inf')
         max_y = -float('inf')
+        min_y = float('inf')
 
         for n in nodes:
             node = nodes[n]
             pos = node.get_pos()
             if pos is not None:
-                min_x = min(min_x, pos[0])
-                min_y = min(min_y, pos[1])
                 max_x = max(max_x, pos[0])
+                min_x = min(min_x, pos[0])
                 max_y = max(max_y, pos[1])
+                min_y = min(min_y, pos[1])
 
         if min_x >= max_x:
-            min_x = 0
-            min_y = 0
             max_x = len(nodes)
+            min_x = 0
             max_y = len(nodes)
+            min_y = 0
 
         for n in nodes:
             node = nodes[n]
@@ -268,4 +274,4 @@ class GraphAlgo(GraphAlgoInterface):
                 new_pos = (x, y, 0)
                 node.set_pos(new_pos)
 
-        return min_x, max_x, min_y, max_y
+        return max_x, max_y, min_x, min_y

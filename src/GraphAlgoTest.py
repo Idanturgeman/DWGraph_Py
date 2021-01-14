@@ -2,76 +2,10 @@ import unittest
 import networkx as nx
 from DiGraph import DiGraph
 from GraphAlgo import GraphAlgo
-from Networkx import Networkx
+from Comper import Networkx
 
 
 class MyTestCase(unittest.TestCase):
-
-    def test_load(self):
-        g = DiGraph()
-        ga = GraphAlgo(g)
-        self.assertTrue(ga.load_from_json('../data/A5'))
-        g = ga.get_graph()
-        self.assertEqual(g.v_size(), 48)
-        self.assertEqual(g.e_size(), 166)
-
-    def test_save(self):
-        g = DiGraph()
-        for i in range(10):
-            g.add_node(i)
-        for i in range(5):
-            g.add_edge(i, i+1, i*10 + 1)
-        ga1 = GraphAlgo(g)
-        self.assertTrue(ga1.save_to_json('../data/test.json'))
-
-        ga2 = GraphAlgo(DiGraph())
-        ga2.load_from_json('../data/test.json')
-        self.assertEqual(repr(ga1), repr(ga2))
-
-        ga1.load_from_json('../data/G_100_800_1.json')
-        self.assertTrue(ga1.save_to_json('../data/test.json'))
-        ga2.load_from_json('../data/test.json')
-        self.assertEqual(repr(ga1), repr(ga2))
-
-    def test_shortest_path(self):
-        g = DiGraph()
-        for i in range(10):
-            g.add_node(i)
-        for i in range(9):
-            g.add_edge(i, i+1, 1)
-        g.add_edge(0, 9, 100)
-        g.add_edge(0, 6, 3)
-        g.add_edge(6, 8, 2)
-        ga = GraphAlgo(g)
-        dist, path = ga.shortest_path(0, 9)
-        self.assertEqual(dist, 6)
-        check = [0, 6, 8, 9]
-        for i in range(len(check)):
-            self.assertEqual(check[i], path[i])
-
-        check = [7]
-        dist, path = ga.shortest_path(7, 7)
-        self.assertEqual(dist, 0)
-        for i in range(len(check)):
-            self.assertEqual(check[i], path[i])
-
-        dist, path = ga.shortest_path(8, 5)
-        self.assertEqual(dist, float('inf'))
-        self.assertEqual(len(path), 0)
-
-
-        nxr = Networkx()
-        nxr.read('../data/G_100_800_1.json')
-        nxg = nxr.get_graph()
-        nx_path = nx.shortest_path(nxg, 3, 73, weight="weight")
-        nx_dist = nx.shortest_path_length(nxg, 3, 73, weight="weight")
-
-        ga = GraphAlgo()
-        ga.load_from_json('../data/G_100_800_1.json')
-        dist, path = ga.shortest_path(3, 73)
-
-        self.assertEqual(dist, nx_dist)
-        self.assertEqual(path, nx_path)
 
     def test_connected_component(self):
         g = DiGraph()
@@ -126,6 +60,79 @@ class MyTestCase(unittest.TestCase):
                 node = comp[j]
                 j += 1
                 self.assertEqual(node, nx_node)
+
+
+    def test_shortest_path(self):
+        g = DiGraph()
+        for i in range(10):
+            g.add_node(i)
+        for i in range(9):
+            g.add_edge(i, i+1, 1)
+        g.add_edge(0, 9, 100)
+        g.add_edge(0, 6, 3)
+        g.add_edge(6, 8, 2)
+        ga = GraphAlgo(g)
+        dist, path = ga.shortest_path(0, 9)
+        self.assertEqual(dist, 6)
+        check = [0, 6, 8, 9]
+        for i in range(len(check)):
+            self.assertEqual(check[i], path[i])
+
+        check = [7]
+        dist, path = ga.shortest_path(7, 7)
+        self.assertEqual(dist, 0)
+        for i in range(len(check)):
+            self.assertEqual(check[i], path[i])
+
+        dist, path = ga.shortest_path(8, 5)
+        self.assertEqual(dist, float('inf'))
+        self.assertEqual(len(path), 0)
+
+
+        nxr = Networkx()
+        nxr.read('../data/G_100_800_1.json')
+        nxg = nxr.get_graph()
+        nx_path = nx.shortest_path(nxg, 3, 73, weight="weight")
+        nx_dist = nx.shortest_path_length(nxg, 3, 73, weight="weight")
+
+        ga = GraphAlgo()
+        ga.load_from_json('../data/G_100_800_1.json')
+        dist, path = ga.shortest_path(3, 73)
+
+        self.assertEqual(dist, nx_dist)
+        self.assertEqual(path, nx_path)
+
+
+
+    def test_save(self):
+        g = DiGraph()
+        for i in range(10):
+            g.add_node(i)
+        for i in range(5):
+            g.add_edge(i, i + 1, i * 10 + 1)
+        ga1 = GraphAlgo(g)
+        self.assertTrue(ga1.save_to_json('../data/test.json'))
+
+        ga2 = GraphAlgo(DiGraph())
+        ga2.load_from_json('../data/test.json')
+        self.assertEqual(repr(ga1), repr(ga2))
+
+        ga1.load_from_json('../data/G_100_800_1.json')
+        self.assertTrue(ga1.save_to_json('../data/test.json'))
+        ga2.load_from_json('../data/test.json')
+        self.assertEqual(repr(ga1), repr(ga2))
+
+
+    def test_load(self):
+        g = DiGraph()
+        ga = GraphAlgo(g)
+        self.assertTrue(ga.load_from_json('../data/A5'))
+        g = ga.get_graph()
+        self.assertEqual(g.v_size(), 48)
+        self.assertEqual(g.e_size(), 166)
+
+
+
 
     def test_plot(self):
         g = DiGraph()
